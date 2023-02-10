@@ -37,6 +37,6 @@ do
   kustomize --load-restrictor=LoadRestrictionsNone build . > ${OUTPUT_DIR}/deploy.yaml
   rm $MANIFEST $MANIFEST.bak
   cd ~-
-  # automatically generate the (unsupported) kustomization.yaml for each target
+
   sed "s_{TARGET}_${TARGET}_" $TEMPLATE_DIR/static-kustomization-template.yaml > ${OUTPUT_DIR}/kustomization.yaml
 done
