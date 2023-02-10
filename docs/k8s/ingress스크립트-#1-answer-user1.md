@@ -1,21 +1,5 @@
 #ingress 설정을 위한 script 파일을 작성하시오
 
-#!/bin/bash
-
-# Copyright 2020 The Kubernetes Authors.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 if [ -n "$DEBUG" ]; then
 	set -x
 fi
@@ -28,13 +12,10 @@ K8S_VERSION="1.22"
 
 DIR=$(cd $(dirname "${BASH_SOURCE}")/.. && pwd -P)
 
-# clean
 rm -rf ${DIR}/deploy/static/provider/*
 
 TEMPLATE_DIR="${DIR}/hack/manifest-templates"
 
-# each helm values file `values.yaml` under `hack/manifest-templates/provider` will be generated as provider/<provider>[/variant]/deploy.yaml
-# TARGET is provider/<provider>[/variant]
 TARGETS=$(dirname $(cd $DIR/hack/manifest-templates/ && find . -type f -name "values.yaml" ) | cut -d'/' -f2-)
 for TARGET in ${TARGETS}
 do
